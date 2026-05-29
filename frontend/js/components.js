@@ -47,8 +47,8 @@ const components = {
                 
                 <div class="modal-meta">
                     <div class="meta-item">
-                        <span class="meta-label">Movement</span>
-                        <span class="meta-val">${product.category === 'Automatic' || product.category === 'Astronomical' ? 'Automatic Caliber' : 'Quartz / Electronic'}</span>
+                        <span class="meta-label">Type</span>
+                        <span class="meta-val">${product.category === 'Figures' || product.category === 'Apparel' ? 'Premium Collectible' : 'Standard Merchandise'}</span>
                     </div>
                     <div class="meta-item">
                         <span class="meta-label">Availability</span>
@@ -77,7 +77,7 @@ const components = {
     CartItem(item) {
         return `
             <div class="cart-item" data-id="${item.id}">
-                <img src="${item.image_url}" alt="${item.name}" class="cart-item-image" onerror="this.src='https://placehold.co/100x100/1a1a20/c5a880?text=Watch'">
+                <img src="${item.image_url}" alt="${item.name}" class="cart-item-image" onerror="this.src='https://placehold.co/100x100/1a1a20/c5a880?text=Item'">
                 <div class="cart-item-details">
                     <h4 class="cart-item-title">${item.name}</h4>
                     <div class="cart-item-price">$${item.price.toLocaleString()}</div>
@@ -177,7 +177,7 @@ const components = {
             <tr data-id="${product.id}">
                 <td>
                     <div class="table-prod-info">
-                        <img src="${product.image_url}" alt="${product.name}" class="table-prod-img" onerror="this.src='https://placehold.co/80x80/1a1a20/c5a880?text=Watch'">
+                        <img src="${product.image_url}" alt="${product.name}" class="table-prod-img" onerror="this.src='https://placehold.co/80x80/1a1a20/c5a880?text=Item'">
                         <div>
                             <div class="table-prod-name">${product.name}</div>
                             <div class="text-muted" style="font-size: 0.75rem;">ID: ${product.id}</div>
@@ -257,9 +257,9 @@ const components = {
         let totalRevenue = 0;
         let totalItemsSold = 0;
         let categorySales = {
-            "Automatic": 0,
-            "Sport": 0,
-            "Astronomical": 0,
+            "Figures": 0,
+            "Apparel": 0,
+            "Posters": 0,
             "Accessories": 0
         };
 
@@ -268,7 +268,7 @@ const components = {
                 totalRevenue += order.total_price;
                 order.items.forEach(item => {
                     totalItemsSold += item.quantity;
-                    const cat = (item.product && item.product.category) ? item.product.category : "Automatic";
+                    const cat = (item.product && item.product.category) ? item.product.category : "Figures";
                     if (categorySales[cat] !== undefined) {
                         categorySales[cat] += item.price * item.quantity;
                     } else {

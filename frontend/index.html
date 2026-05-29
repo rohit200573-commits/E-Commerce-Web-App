@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chronos Timepieces | Luxury Watch Boutique</title>
+    <title>Otaku Haven | Anime Merchandise</title>
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -22,8 +22,8 @@
         <!-- Navigation Header -->
         <header class="main-header">
             <div class="logo" id="logo-btn">
-                <span class="logo-serif">CHRONOS</span>
-                <span class="logo-sub">TIMEPIECES</span>
+                <span class="logo-serif">OTAKU</span>
+                <span class="logo-sub">HAVEN</span>
             </div>
             
             <nav class="nav-links">
@@ -65,16 +65,16 @@
             <!-- 1. Catalog View -->
             <section id="catalog-view" class="view-section active">
                 <div class="hero-section">
-                    <h1 class="serif-title">Curated Horology</h1>
-                    <p class="subtitle">Experience the art of mechanical precision and timeless aesthetics.</p>
+                    <h1 class="serif-title">Anime Merchandise</h1>
+                    <p class="subtitle">Your premium destination for anime figures, apparel, and collectibles.</p>
                     
                     <!-- Filters Grid -->
                     <div class="filters-container">
                         <div class="category-filters">
                             <button class="filter-btn active" data-category="all">All Masterpieces</button>
-                            <button class="filter-btn" data-category="Automatic">Automatic</button>
-                            <button class="filter-btn" data-category="Sport">Sport</button>
-                            <button class="filter-btn" data-category="Astronomical">Astronomical</button>
+                            <button class="filter-btn" data-category="Figures">Figures</button>
+                            <button class="filter-btn" data-category="Apparel">Apparel</button>
+                            <button class="filter-btn" data-category="Posters">Posters</button>
                             <button class="filter-btn" data-category="Accessories">Accessories</button>
                         </div>
                     </div>
@@ -113,12 +113,12 @@
                     <!-- Signup Form Card -->
                     <div class="auth-card" id="signup-card">
                         <h2 class="serif-title card-title">Register</h2>
-                        <p class="card-subtitle">Join the Chronos collectors circle.</p>
+                        <p class="card-subtitle">Join the Otaku collectors circle.</p>
                         
                         <form id="signup-form">
                             <div class="form-group">
                                 <label for="signup-username">Username</label>
-                                <input type="text" id="signup-username" required placeholder="collector_chronos">
+                                <input type="text" id="signup-username" required placeholder="otaku_collector">
                             </div>
                             <div class="form-group">
                                 <label for="signup-email">Email Address</label>
@@ -241,14 +241,14 @@
                             <h2 class="serif-title tab-title">Product Catalog Inventory</h2>
                             <button class="btn-primary" id="add-product-btn">
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                                <span>Add New Watch</span>
+                                <span>Add New Item</span>
                             </button>
                         </div>
                         <div class="table-responsive">
                             <table class="admin-table">
                                 <thead>
                                     <tr>
-                                        <th>Watch</th>
+                                        <th>Item</th>
                                         <th>Category</th>
                                         <th>Price</th>
                                         <th>Stock</th>
@@ -275,7 +275,7 @@
                                 <h3 id="stat-orders">0</h3>
                             </div>
                             <div class="analytics-card glass-panel">
-                                <span class="card-label">Watches Sold</span>
+                                <span class="card-label">Items Sold</span>
                                 <h3 id="stat-items">0</h3>
                             </div>
                         </div>
@@ -310,20 +310,20 @@
             <button class="modal-close-btn" id="product-form-close">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
             </button>
-            <h2 class="serif-title" id="product-form-title">Add New Watch</h2>
+            <h2 class="serif-title" id="product-form-title">Add New Item</h2>
             <form id="product-crud-form">
                 <input type="hidden" id="form-product-id">
                 <div class="form-row">
                     <div class="form-group flex-2">
-                        <label for="form-product-name">Watch Name</label>
-                        <input type="text" id="form-product-name" required placeholder="e.g. Chronos Eclipse">
+                        <label for="form-product-name">Item Name</label>
+                        <input type="text" id="form-product-name" required placeholder="e.g. Gojo Figure">
                     </div>
                     <div class="form-group flex-1">
                         <label for="form-product-category">Category</label>
                         <select id="form-product-category" required>
-                            <option value="Automatic">Automatic</option>
-                            <option value="Sport">Sport</option>
-                            <option value="Astronomical">Astronomical</option>
+                            <option value="Figures">Figures</option>
+                            <option value="Apparel">Apparel</option>
+                            <option value="Posters">Posters</option>
                             <option value="Accessories">Accessories</option>
                         </select>
                     </div>
@@ -340,13 +340,13 @@
                 </div>
                 <div class="form-group">
                     <label for="form-product-image">Image URL</label>
-                    <input type="text" id="form-product-image" required placeholder="assets/watches/eclipse.png">
+                    <input type="text" id="form-product-image" required placeholder="assets/items/gojo.png">
                 </div>
                 <div class="form-group">
                     <label for="form-product-desc">Description</label>
-                    <textarea id="form-product-desc" required placeholder="Provide details about movements, calibration, straps, and case..." rows="4"></textarea>
+                    <textarea id="form-product-desc" required placeholder="Provide details about the anime product..." rows="4"></textarea>
                 </div>
-                <button type="submit" class="btn-block btn-accent" id="form-submit-btn">Save Masterpiece</button>
+                <button type="submit" class="btn-block btn-accent" id="form-submit-btn">Save Item</button>
             </form>
         </div>
     </div>

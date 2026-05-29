@@ -442,14 +442,14 @@ class ChronosApp {
         // Clear/Set values
         document.getElementById("form-product-id").value = product ? product.id : "";
         document.getElementById("form-product-name").value = product ? product.name : "";
-        document.getElementById("form-product-category").value = product ? product.category : "Automatic";
+        document.getElementById("form-product-category").value = product ? product.category : "Figures";
         document.getElementById("form-product-price").value = product ? product.price : "";
         document.getElementById("form-product-stock").value = product ? product.stock : "";
-        document.getElementById("form-product-image").value = product ? product.image_url : "assets/watches/";
+        document.getElementById("form-product-image").value = product ? product.image_url : "assets/items/";
         document.getElementById("form-product-desc").value = product ? product.description : "";
 
-        title.innerText = product ? "Modify Masterpiece" : "Exhibit New Masterpiece";
-        submitBtn.innerText = product ? "Update Watch" : "Publish to Catalog";
+        title.innerText = product ? "Modify Item" : "Exhibit New Item";
+        submitBtn.innerText = product ? "Update Item" : "Publish to Catalog";
 
         modal.classList.add("active");
     }

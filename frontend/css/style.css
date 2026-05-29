@@ -10,16 +10,16 @@
     --bg-panel-solid: #121216;
     --bg-card: rgba(26, 26, 32, 0.5);
     
-    --accent-gold: #c5a880;
-    --accent-gold-hover: #dfba8c;
-    --accent-gold-glow: rgba(197, 168, 128, 0.35);
+    --accent-gold: #a855f7;
+    --accent-gold-hover: #c084fc;
+    --accent-gold-glow: rgba(168, 85, 247, 0.35);
     
     --text-primary: #f3f4f6;
     --text-secondary: #9ca3af;
     --text-muted: #6b7280;
     
-    --border-color: rgba(197, 168, 128, 0.15);
-    --border-hover: rgba(197, 168, 128, 0.35);
+    --border-color: rgba(168, 85, 247, 0.15);
+    --border-hover: rgba(168, 85, 247, 0.35);
     
     /* Layout Tokens */
     --max-width: 1400px;
@@ -81,7 +81,7 @@ body {
 .bg-grad-2 {
     bottom: -100px;
     right: -100px;
-    background: radial-gradient(circle, #8a7355 0%, transparent 70%);
+    background: radial-gradient(circle, #06b6d4 0%, transparent 70%);
 }
 
 /* --- Typography Definitions --- */

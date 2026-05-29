@@ -40,49 +40,57 @@ def seed_db():
         
         products = [
             models.Product(
-                name="Chronos Eclipse",
-                description="Sleek matte-black automatic chronograph with obsidian dial, luminous silver hour markers, and premium dark leather strap. Engineered with a precision Swiss caliber movement.",
-                price=2400.0,
-                image_url="assets/watches/eclipse.png",
-                category="Automatic",
+                name="Gojo Satoru 1/7 Scale Figure",
+                description="Premium 1/7 scale figure of Satoru Gojo from Jujutsu Kaisen. Features incredible detail, dynamic posing, and interchangeable unmasked head.",
+                price=149.99,
+                image_url="https://placehold.co/400x400/1a1a20/a855f7?text=Gojo+Figure",
+                category="Figures",
+                stock=15
+            ),
+            models.Product(
+                name="Demon Slayer Corps Haori",
+                description="Authentic replica of the Demon Slayer Corps uniform jacket. Made from high-quality, breathable fabric with embroidered kanji.",
+                price=59.99,
+                image_url="https://placehold.co/400x400/1a1a20/a855f7?text=Haori",
+                category="Apparel",
+                stock=40
+            ),
+            models.Product(
+                name="Akatsuki Cloud Hoodie",
+                description="Comfortable black hoodie featuring the iconic red clouds of the Akatsuki. Perfect for casual wear and ninja missions.",
+                price=45.00,
+                image_url="https://placehold.co/400x400/1a1a20/a855f7?text=Akatsuki+Hoodie",
+                category="Apparel",
+                stock=25
+            ),
+            models.Product(
+                name="Thousand Sunny Model Kit",
+                description="Detailed model kit of the Straw Hat Pirates' second ship, the Thousand Sunny. Includes mini figures of the crew.",
+                price=65.00,
+                image_url="https://placehold.co/400x400/1a1a20/a855f7?text=Thousand+Sunny",
+                category="Figures",
                 stock=8
             ),
             models.Product(
-                name="Aether Rose Gold",
-                description="Brushed 18k rose gold automatic timepiece with an open-heart skeleton dial showing the intricate escapement wheel. Complete with a dark brown alligator leather strap.",
-                price=4800.0,
-                image_url="assets/watches/aether.png",
-                category="Automatic",
-                stock=5
+                name="Attack on Titan Wall Scroll",
+                description="High-quality fabric wall scroll featuring the Survey Corps charging into battle. Measures 33x44 inches.",
+                price=24.99,
+                image_url="https://placehold.co/400x400/1a1a20/a855f7?text=AOT+Scroll",
+                category="Posters",
+                stock=50
             ),
             models.Product(
-                name="Vanguard Carbon",
-                description="Ultra-light forged carbon sports chronograph watch. Features active water resistance up to 200m, scratch-resistant sapphire crystal, and an integrated dark-green fluororubber strap.",
-                price=3200.0,
-                image_url="assets/watches/vanguard.png",
-                category="Sport",
-                stock=10
-            ),
-            models.Product(
-                name="Stellar Orbit",
-                description="A mechanical masterpiece featuring a dial slice from an authentic Gibeon meteorite. Includes a hand-engraved 24k gold lunar phase tracker and starlight-blue steel hands.",
-                price=6500.0,
-                image_url="assets/watches/stellar.png",
-                category="Astronomical",
-                stock=3
-            ),
-            models.Product(
-                name="Onyx Curator",
-                description="Handcrafted solid walnut-wood display box with soft charcoal velvet cushions. Safely stores, protects, and exhibits up to six of your finest mechanical timepieces.",
-                price=350.0,
-                image_url="assets/watches/curator.png",
+                name="Konoha Headband",
+                description="Metal plated Hidden Leaf Village ninja headband. Can be worn traditionally or styled in various ways.",
+                price=15.99,
+                image_url="https://placehold.co/400x400/1a1a20/a855f7?text=Headband",
                 category="Accessories",
-                stock=15
+                stock=100
             )
         ]
         
         db.add_all(products)
-        print("Seeded Chronos Products.")
+        print("Seeded Anime Products.")
         
         db.commit()
         print("Database seeded successfully!")
