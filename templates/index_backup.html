@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SenpaiSupply | Futuristic Anime Merchandise Store</title>
+    <meta name="description" content="Your ultimate supply of premium anime action figures, streetwear apparel, replicas, and cyberpunk desk accessories. Elevate your otaku game today.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Outfit:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- CSS styles -->
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/shop.css">
+    <link rel="stylesheet" href="/static/css/auth.css">
+    <link rel="stylesheet" href="/static/css/checkout.css">
+    <link rel="stylesheet" href="/static/css/dashboard.css">
+</head>
+<body>
+
+    <!-- Loading Preloader -->
+    <div id="preloader">
+        <div class="spinner-container">
+            <div class="scanner-line"></div>
+            <div class="logo-glow">SENPAI</div>
+            <div class="sub-text">BOOTING SYSTEM...</div>
+        </div>
+    </div>
+
+    <!-- Navigation Header -->
+    <header class="main-header" id="main-header">
+        <div class="header-container">
+            <a href="#/" class="logo-link">
+                <img src="/static/images/logo.png" alt="SenpaiSupply Logo" class="logo-img" id="header-logo">
+            </a>
+            
+            <nav class="nav-links">
+                <a href="#/" class="nav-item active" id="nav-home">Home</a>
+                <a href="#/shop" class="nav-item" id="nav-shop">Shop</a>
+                <span class="admin-only" style="display: none;">
+                    <a href="#/admin" class="nav-item" id="nav-admin">Admin Portal</a>
+                </span>
+                <span class="user-only" style="display: none;">
+                    <a href="#/dashboard" class="nav-item" id="nav-dashboard">My Orders</a>
+                </span>
+            </nav>
+
+            <div class="search-bar-container">
+                <form id="search-form" class="search-form">
+                    <input type="text" id="search-input" placeholder="Search weapons, apparel, figures..." autocomplete="off">
+                    <button type="submit" class="search-btn"><i class="fas fa-search"></i></button>
+                </form>
+            </div>
+
+            <div class="header-actions">
+                <div class="profile-dropdown-container">
+                    <button class="action-btn" id="profile-trigger" aria-label="User Account">
+                        <i class="far fa-user"></i>
+                        <span id="user-status-dot" class="status-dot"></span>
+                    </button>
+                    <div class="dropdown-menu" id="profile-dropdown">
+                        <div class="dropdown-header" id="dropdown-user-info">
+                            <p class="user-greeting">Welcome, Guest</p>
+                            <p class="user-subtext">Access your dashboard</p>
+                        </div>
+                        <hr class="dropdown-divider">
+                        <div id="dropdown-auth-links">
+                            <a href="#/auth" class="dropdown-item"><i class="fas fa-sign-in-alt"></i> Login / Register</a>
+                        </div>
+                        <div id="dropdown-user-links" style="display: none;">
+                            <a href="#/dashboard" class="dropdown-item"><i class="fas fa-box"></i> Order History</a>
+                            <span class="admin-only" style="display: none;">
+                                <a href="#/admin" class="dropdown-item"><i class="fas fa-chart-line"></i> Admin Dashboard</a>
+                            </span>
+                            <hr class="dropdown-divider">
+                            <a href="#" id="logout-btn" class="dropdown-item logout-item"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="action-btn cart-toggle-btn" id="cart-trigger" aria-label="Shopping Cart">
+                    <i class="fas fa-shopping-bag"></i>
+                    <span id="cart-count" class="cart-badge">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Cart Drawer (Slide-out from Right) -->
+    <div class="cart-backdrop" id="cart-backdrop"></div>
+    <div class="cart-drawer" id="cart-drawer">
+        <div class="cart-header">
+            <h3><i class="fas fa-shopping-bag text-neon"></i> Your Cart</h3>
+            <button class="close-cart-btn" id="close-cart" aria-label="Close Cart"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="cart-items-container" id="cart-items">
+            <!-- Dynamically populated via JS -->
+            <div class="empty-cart-message">
+                <i class="fas fa-circle-notch fa-spin text-neon"></i>
+                <p>Your cart is empty. Add anime merch!</p>
+                <a href="#/shop" class="btn btn-neon">Browse Shop</a>
+            </div>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-summary">
+                <div class="summary-row">
+                    <span>Subtotal:</span>
+                    <span class="total-price" id="cart-subtotal">₹0.00</span>
+                </div>
+                <p class="shipping-info">Shipping calculated at checkout</p>
+            </div>
+            <div class="cart-actions">
+                <a href="#/checkout" class="btn btn-glow btn-block" id="cart-checkout-btn">Proceed to Checkout</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content Swapping Container -->
+    <main class="main-content" id="main-content">
+
+        <!-- 1. Home View -->
+        <section id="home-view" class="view-section active">
+            <!-- Hero Section -->
+            <div class="hero-section">
+                <div class="hero-overlay"></div>
+                <div class="hero-content">
+                    <div class="glitch-container">
+                        <span class="tagline">PREMIUM MERCHANDISE SYSTEM</span>
+                        <h1 class="hero-title" data-text="SENPAI SUPPLY">SENPAI SUPPLY</h1>
+                    </div>
+                    <p class="hero-description">The ultimate store for high-end figures, tactical street apparel, authentic replicas, and glowing cyber gear.</p>
+                    <div class="hero-actions">
+                        <a href="#/shop" class="btn btn-glow btn-lg">ENTER CATALOG</a>
+                        <a href="#/shop?category=Figures" class="btn btn-outline btn-lg">VIEW FIGURES</a>
+                    </div>
+                </div>
+                <div class="scroll-indicator">
+                    <span>SCROLL TO EXPLORE</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+            </div>
+
+            <!-- Categories Banner Grid -->
+            <div class="container py-5">
+                <h2 class="section-title text-center">CATEGORIES</h2>
+                <div class="categories-grid">
+                    <a href="#/shop?category=Figures" class="category-card" style="background-image: url('/static/images/goku_ui.png');">
+                        <div class="category-overlay"></div>
+                        <div class="category-content">
+                            <h3>FIGURES</h3>
+                            <span class="explore-btn">EXPLORE <i class="fas fa-arrow-right"></i></span>
+                        </div>
+                    </a>
+                    <a href="#/shop?category=Apparel" class="category-card" style="background-image: url('/static/images/neon_hoodie.png');">
+                        <div class="category-overlay"></div>
+                        <div class="category-content">
+                            <h3>APPAREL</h3>
+                            <span class="explore-btn">EXPLORE <i class="fas fa-arrow-right"></i></span>
+                        </div>
+                    </a>
+                    <a href="#/shop?category=Accessories" class="category-card" style="background-image: url('/static/images/katana.png');">
+                        <div class="category-overlay"></div>
+                        <div class="category-content">
+                            <h3>WEAPONS & GEAR</h3>
+                            <span class="explore-btn">EXPLORE <i class="fas fa-arrow-right"></i></span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Featured Products -->
+            <div class="container py-5">
+                <div class="section-header">
+                    <h2 class="section-title">FEATURED ITEMS</h2>
+                    <a href="#/shop" class="view-all-link">ALL MERCH <i class="fas fa-long-arrow-alt-right"></i></a>
+                </div>
+                <div class="products-grid" id="featured-products-grid">
+                    <!-- Dynamically Populated -->
+                </div>
+            </div>
+
+            <!-- Futuristic Promotion Banner -->
+            <div class="container py-5">
+                <div class="promo-banner-glow">
+                    <div class="promo-content">
+                        <span class="promo-badge">LIMITED COLLAB</span>
+                        <h2>CYBERPUNK CRATE v2.6</h2>
+                        <p>Unlock authentic cyberpunk design with exclusive accessories, street clothing, and metallic display cards. Includes custom glowing acrylic panel.</p>
+                        <a href="#/shop" class="btn btn-neon">GRAB YOURS NOW</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. Shop View -->
+        <section id="shop-view" class="view-section">
+            <div class="shop-banner">
+                <div class="shop-banner-overlay"></div>
+                <div class="shop-banner-content container">
+                    <h2>SYSTEM SHOP</h2>
+                    <p>Filter by classification and customize your setup</p>
+                </div>
+            </div>
+
+            <div class="container shop-layout py-5">
+                <!-- Left Filters Sidebar -->
+                <aside class="shop-sidebar">
+                    <div class="sidebar-widget">
+                        <h4>CLASSIFICATION</h4>
+                        <div class="filter-categories" id="sidebar-categories">
+                            <button class="filter-btn active" data-category="all">All Gear</button>
+                            <button class="filter-btn" data-category="Figures">Figures</button>
+                            <button class="filter-btn" data-category="Apparel">Apparel</button>
+                            <button class="filter-btn" data-category="Accessories">Accessories</button>
+                            <button class="filter-btn" data-category="Posters">Posters</button>
+                        </div>
+                    </div>
+
+                    <div class="sidebar-widget">
+                        <h4>ORDER BY</h4>
+                        <select id="sort-select" class="form-control font-outfit">
+                            <option value="newest">System Default</option>
+                            <option value="price_asc">Price: Low to High</option>
+                            <option value="price_desc">Price: High to Low</option>
+                        </select>
+                    </div>
+
+                    <div class="sidebar-widget">
+                        <h4>QUICK SEARCH</h4>
+                        <div class="sidebar-search">
+                            <input type="text" id="sidebar-search-input" placeholder="Keyword..." class="form-control">
+                            <button id="sidebar-search-btn" class="btn btn-neon"><i class="fas fa-search"></i></button>
+                        </div>
+                    </div>
+                </aside>
+
+                <!-- Right Product Cards List -->
+                <div class="shop-main-content">
+                    <div class="results-header">
+                        <span id="results-count" class="text-muted">Loading available items...</span>
+                    </div>
+                    <div class="products-grid" id="shop-products-grid">
+                        <!-- Loaded dynamically -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. Product Detail View -->
+        <section id="product-detail-view" class="view-section">
+            <div class="container py-5">
+                <div class="back-navigation">
+                    <a href="#/shop" class="back-link"><i class="fas fa-chevron-left"></i> BACK TO CATALOG</a>
+                </div>
+                
+                <div class="product-detail-container" id="product-detail-content">
+                    <!-- Dynamically populated via JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. Auth View -->
+        <section id="auth-view" class="view-section">
+            <div class="auth-container">
+                <div class="auth-card">
+                    <div class="auth-tabs">
+                        <button class="auth-tab active" id="tab-login">SIGN IN</button>
+                        <button class="auth-tab" id="tab-register">REGISTER</button>
+                    </div>
+
+                    <!-- Login Form -->
+                    <form id="login-form" class="auth-form active">
+                        <h3 class="auth-title">ACCESS ACCOUNT</h3>
+                        <p class="auth-subtitle">Verify user signature keys</p>
+
+                        <div class="form-group">
+                            <label for="login-email">SECURE EMAIL</label>
+                            <div class="input-glow-wrapper">
+                                <i class="far fa-envelope input-icon"></i>
+                                <input type="email" id="login-email" required placeholder="name@domain.com">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="login-password">SECURE KEYCODE (PASSWORD)</label>
+                            <div class="input-glow-wrapper">
+                                <i class="fas fa-lock input-icon"></i>
+                                <input type="password" id="login-password" required placeholder="••••••••">
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-glow btn-block">DECRYPT ACCESS</button>
+                        <p class="auth-switch-prompt">Need credential keys? <span class="text-neon cursor-pointer" onclick="document.getElementById('tab-register').click()">Create Account</span></p>
+                    </form>
+
+                    <!-- Register Form -->
+                    <form id="register-form" class="auth-form">
+                        <h3 class="auth-title">CREATE INITIAL KEY</h3>
+                        <p class="auth-subtitle">Register new user footprint in database</p>
+
+                        <div class="form-group">
+                            <label for="register-username">USERNAME</label>
+                            <div class="input-glow-wrapper">
+                                <i class="far fa-user input-icon"></i>
+                                <input type="text" id="register-username" required placeholder="otaku_lord">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="register-email">EMAIL ADDRESS</label>
+                            <div class="input-glow-wrapper">
+                                <i class="far fa-envelope input-icon"></i>
+                                <input type="email" id="register-email" required placeholder="otaku@domain.com">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="register-password">PASSWORD KEY</label>
+                            <div class="input-glow-wrapper">
+                                <i class="fas fa-lock input-icon"></i>
+                                <input type="password" id="register-password" required placeholder="Minimum 6 characters">
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-glow btn-block">INJECT CODE & REGISTER</button>
+                        <p class="auth-switch-prompt">Already authenticated? <span class="text-neon cursor-pointer" onclick="document.getElementById('tab-login').click()">Log In</span></p>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. Checkout View -->
+        <section id="checkout-view" class="view-section">
+            <div class="container py-5">
+                <h2 class="section-title text-center">CHECKOUT INTERFACE</h2>
+                
+                <div class="checkout-layout">
+                    <!-- Left: Forms -->
+                    <div class="checkout-forms">
+                        <form id="checkout-form">
+                            <!-- Step 1: Shipping Address -->
+                            <div class="checkout-step-card active" id="step-shipping">
+                                <div class="step-header">
+                                    <div class="step-badge">01</div>
+                                    <h3>SHIPPING FOOTPRINT</h3>
+                                </div>
+                                <div class="step-content">
+                                    <div class="form-group">
+                                        <label for="shipping-name">FULL NAME</label>
+                                        <input type="text" id="shipping-name" required placeholder="Son Goku">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="shipping-address">STREET ADDRESS</label>
+                                        <input type="text" id="shipping-address" required placeholder="439 Mount Paozu, East City">
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-6">
+                                            <label for="shipping-city">CITY</label>
+                                            <input type="text" id="shipping-city" required placeholder="Tokyo">
+                                        </div>
+                                        <div class="form-group col-6">
+                                            <label for="shipping-zip">ZIP CODE</label>
+                                            <input type="text" id="shipping-zip" required placeholder="100-0001">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Step 2: Payment Details (with 3D card layout) -->
+                            <div class="checkout-step-card" id="step-payment">
+                                <div class="step-header">
+                                    <div class="step-badge">02</div>
+                                    <h3>CREDENTIAL TRANSFER (PAYMENT)</h3>
+                                </div>
+                                <div class="step-content">
+                                    <!-- Interactive 3D credit card mockup -->
+                                    <div class="payment-card-scene">
+                                        <div class="payment-card" id="payment-card-mockup">
+                                            <div class="payment-card-front">
+                                                <div class="card-chip"></div>
+                                                <div class="card-brand text-right">SENPAI</div>
+                                                <div class="card-number" id="mock-card-number">•••• •••• •••• ••••</div>
+                                                <div class="card-bottom">
+                                                    <div class="card-holder-group">
+                                                        <span class="card-label">CARDHOLDER</span>
+                                                        <div class="card-holder" id="mock-card-name">CHOSEN ONE</div>
+                                                    </div>
+                                                    <div class="card-expiry-group">
+                                                        <span class="card-label">EXPIRES</span>
+                                                        <div class="card-expiry" id="mock-card-expiry">MM/YY</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="payment-card-back">
+                                                <div class="card-magnetic-strip"></div>
+                                                <div class="card-signature-bar">
+                                                    <span class="card-signature">Signature</span>
+                                                    <span class="card-cvv" id="mock-card-cvv">•••</span>
+                                                </div>
+                                                <div class="card-back-note">SECURED BY SENPAISUPPLY APIS</div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Payment Form fields -->
+                                    <div class="form-group">
+                                        <label for="card-holder-input">NAME ON CARD</label>
+                                        <input type="text" id="card-holder-input" required placeholder="Son Goku" autocomplete="off">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="card-number-input">CARD NUMBER</label>
+                                        <input type="text" id="card-number-input" required placeholder="4000 1234 5678 9010" maxlength="19" autocomplete="off">
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-6">
+                                            <label for="card-expiry-input">EXP DATE</label>
+                                            <input type="text" id="card-expiry-input" required placeholder="MM/YY" maxlength="5" autocomplete="off">
+                                        </div>
+                                        <div class="form-group col-6">
+                                            <label for="card-cvv-input">CVV</label>
+                                            <input type="text" id="card-cvv-input" required placeholder="123" maxlength="4" autocomplete="off">
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-group mt-3">
+                                        <label>PAYMENT MODE SELECT</label>
+                                        <div class="payment-options">
+                                            <label class="payment-option-btn active">
+                                                <input type="radio" name="payment_method" value="Credit Card" checked style="display:none;">
+                                                <i class="far fa-credit-card"></i> CREDIT CARD
+                                            </label>
+                                            <label class="payment-option-btn">
+                                                <input type="radio" name="payment_method" value="Cyber-Wallet" style="display:none;">
+                                                <i class="fas fa-wallet"></i> CYBER-WALLET (CASH)
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-glow btn-block btn-lg mt-4" id="submit-order-btn">TRANSMIT ORDER ORDER</button>
+                        </form>
+                    </div>
+
+                    <!-- Right: Order Summary Sidebar -->
+                    <div class="checkout-summary-sidebar">
+                        <div class="checkout-card">
+                            <h3>ORDER INVENTORY</h3>
+                            <hr class="card-divider">
+                            <div class="checkout-items-list" id="checkout-summary-items">
+                                <!-- Loaded via JS -->
+                            </div>
+                            <hr class="card-divider">
+                            <div class="checkout-financials">
+                                <div class="financial-row">
+                                    <span>Inventory Value:</span>
+                                    <span id="checkout-subtotal">₹0.00</span>
+                                </div>
+                                <div class="financial-row">
+                                    <span>Secure Cargo Ship:</span>
+                                    <span class="text-neon">FREE</span>
+                                </div>
+                                <hr class="card-divider">
+                                <div class="financial-row total-row">
+                                    <span>Grand Total:</span>
+                                    <span id="checkout-total" class="text-neon-cyan">₹0.00</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. User Dashboard View -->
+        <section id="user-dashboard-view" class="view-section">
+            <div class="container py-5">
+                <div class="dashboard-header-panel">
+                    <div>
+                        <h2>USER PROFILE HUB</h2>
+                        <p>Welcome back, <span class="text-neon" id="dashboard-username">Otaku</span></p>
+                    </div>
+                    <div>
+                        <span class="user-role-badge">CUSTOMER LOG</span>
+                    </div>
+                </div>
+
+                <div class="dashboard-grid mt-4">
+                    <div class="dashboard-sidebar-panel">
+                        <div class="user-profile-summary">
+                            <div class="avatar-glow"><i class="fas fa-user-ninja"></i></div>
+                            <h4 id="user-profile-name">Guest Otaku</h4>
+                            <p id="user-profile-email">guest@otaku.com</p>
+                            <span class="btn btn-outline btn-block mt-3" onclick="document.getElementById('logout-btn').click()"><i class="fas fa-sign-out-alt"></i> SYSTEM DISCONNECT</span>
+                        </div>
+                    </div>
+                    
+                    <div class="dashboard-main-panel">
+                        <div class="dashboard-card">
+                            <h3>TRANSACTION RECORDS (ORDER HISTORY)</h3>
+                            <div class="orders-list-container" id="user-orders-list">
+                                <!-- Loaded via JS -->
+                                <div class="empty-dashboard-message">
+                                    <p>No orders registered. Enter shop and secure cargo!</p>
+                                    <a href="#/shop" class="btn btn-neon">Browse Shop</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 7. Admin Dashboard View -->
+        <section id="admin-dashboard-view" class="view-section">
+            <div class="container py-5">
+                <div class="dashboard-header-panel">
+                    <div>
+                        <h2>ADMIN SYSTEMS PORTAL</h2>
+                        <p>Global Store Management Engine</p>
+                    </div>
+                    <div>
+                        <span class="user-role-badge badge-admin">ROOT ACCESS</span>
+                    </div>
+                </div>
+
+                <!-- Metrics Overview Boxes -->
+                <div class="admin-metrics-row mt-4">
+                    <div class="metric-box box-sales">
+                        <div class="metric-icon"><i class="fas fa-dollar-sign"></i></div>
+                        <div class="metric-data">
+                            <span class="metric-title">TOTAL SALES REVENUE</span>
+                            <h3 id="admin-stat-sales">₹0.00</h3>
+                        </div>
+                    </div>
+                    <div class="metric-box box-orders">
+                        <div class="metric-icon"><i class="fas fa-boxes"></i></div>
+                        <div class="metric-data">
+                            <span class="metric-title">TOTAL TRANSACTIONS</span>
+                            <h3 id="admin-stat-orders">0</h3>
+                        </div>
+                    </div>
+                    <div class="metric-box box-products">
+                        <div class="metric-icon"><i class="fas fa-cube"></i></div>
+                        <div class="metric-data">
+                            <span class="metric-title">REGISTERED PRODUCTS</span>
+                            <h3 id="admin-stat-products">0</h3>
+                        </div>
+                    </div>
+                    <div class="metric-box box-users">
+                        <div class="metric-icon"><i class="fas fa-users"></i></div>
+                        <div class="metric-data">
+                            <span class="metric-title">ACTIVE SEED ACCOUNTS</span>
+                            <h3 id="admin-stat-users">0</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Split Layout: Chart vs Recent Orders -->
+                <div class="dashboard-charts-layout mt-4">
+                    <!-- Custom SVG Chart Card -->
+                    <div class="dashboard-card chart-card">
+                        <h3>SALES BY INVENTORY CLASS</h3>
+                        <div class="chart-container-wrapper">
+                            <div class="chart-svg-container" id="admin-category-chart">
+                                <!-- Interactive SVG rings or bars generated dynamically -->
+                                <svg width="100%" height="200" id="svg-bars">
+                                    <!-- Dynamic elements injected here -->
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recent Orders List -->
+                    <div class="dashboard-card orders-card">
+                        <h3>RECENT LOG TRANSACTIONS</h3>
+                        <div class="recent-orders-list">
+                            <table class="dashboard-table">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>USER</th>
+                                        <th>DATE</th>
+                                        <th>TOTAL</th>
+                                        <th>STATUS</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="admin-recent-orders-table">
+                                    <!-- Loaded dynamically -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dual Database Manager: Product Catalog CRUD & Order List Update -->
+                <div class="admin-sections-tabs mt-4">
+                    <div class="section-tabs-buttons">
+                        <button class="section-tab active" id="tab-manage-products">CATALOG PRODUCT MANAGER</button>
+                        <button class="section-tab" id="tab-manage-orders">GLOBAL ORDER COMPLIANCE</button>
+                    </div>
+
+                    <!-- Products CRUD Section -->
+                    <div class="section-tab-content active" id="content-manage-products">
+                        <div class="tab-header-actions">
+                            <h4>STORE PRODUCT RECORDS</h4>
+                            <button class="btn btn-neon btn-sm" id="btn-create-product-modal"><i class="fas fa-plus"></i> INJECT NEW PRODUCT</button>
+                        </div>
+                        <div class="table-scroll-container">
+                            <table class="dashboard-table full-width">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>IMAGE</th>
+                                        <th>NAME</th>
+                                        <th>CATEGORY</th>
+                                        <th>PRICE</th>
+                                        <th>STOCK</th>
+                                        <th>ACTIONS</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="admin-products-table">
+                                    <!-- Loaded dynamically -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Global Orders Management Section -->
+                    <div class="section-tab-content" id="content-manage-orders">
+                        <h4>ALL GLOBAL ORDER SHIPMENTS</h4>
+                        <div class="table-scroll-container">
+                            <table class="dashboard-table full-width">
+                                <thead>
+                                    <tr>
+                                        <th>ORDER ID</th>
+                                        <th>CUSTOMER</th>
+                                        <th>DATE LOGGED</th>
+                                        <th>TOTAL COST</th>
+                                        <th>PAYMENT</th>
+                                        <th>STATUS</th>
+                                        <th>COMPLIANCE ACTION</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="admin-global-orders-table">
+                                    <!-- Loaded dynamically -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Product CRUD Modal Form (Hidden by default) -->
+    <div class="modal-backdrop" id="product-modal-backdrop"></div>
+    <div class="product-modal" id="product-modal">
+        <div class="modal-header">
+            <h3 id="product-modal-title">PRODUCT FORM</h3>
+            <button class="close-modal-btn" id="close-product-modal"><i class="fas fa-times"></i></button>
+        </div>
+        <form id="product-crud-form">
+            <input type="hidden" id="crud-product-id">
+            <div class="form-group">
+                <label for="crud-name">PRODUCT NAME</label>
+                <input type="text" id="crud-name" required placeholder="Goku UI Figurine">
+            </div>
+            <div class="form-group">
+                <label for="crud-description">PRODUCT DESCRIPTION</label>
+                <textarea id="crud-description" rows="3" required placeholder="Describe product details..."></textarea>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-6">
+                    <label for="crud-price">PRICE (₹ INR)</label>
+                    <input type="number" id="crud-price" step="0.01" required placeholder="49.99">
+                </div>
+                <div class="form-group col-6">
+                    <label for="crud-stock">STOCK QTY</label>
+                    <input type="number" id="crud-stock" required placeholder="10">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-6">
+                    <label for="crud-category">CATEGORY</label>
+                    <select id="crud-category" class="form-control font-outfit" required>
+                        <option value="Figures">Figures</option>
+                        <option value="Apparel">Apparel</option>
+                        <option value="Accessories">Accessories</option>
+                        <option value="Posters">Posters</option>
+                    </select>
+                </div>
+                <div class="form-group col-6">
+                    <label for="crud-image-url">IMAGE SELECTOR</label>
+                    <select id="crud-image-url" class="form-control font-outfit" required>
+                        <option value="/static/images/goku_ui.png">Goku UI Figure</option>
+                        <option value="/static/images/neon_hoodie.png">Cyber Hoodie</option>
+                        <option value="/static/images/katana.png">Katana Replica</option>
+                        <option value="/static/images/mech_poster.png">Mech Poster</option>
+                        <option value="/static/images/logo.png">Senpai Supply Logo</option>
+                    </select>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-glow btn-block mt-3" id="crud-submit-btn">EXECUTE CHANGES</button>
+        </form>
+    </div>
+
+    <!-- Interactive Checkout Success Modal -->
+    <div class="modal-backdrop" id="checkout-success-backdrop"></div>
+    <div class="success-modal" id="checkout-success-modal">
+        <div class="success-icon"><i class="fas fa-check-circle"></i></div>
+        <h2>TRANSMISSION ACCEPTED</h2>
+        <p>Your order hash <span class="text-neon" id="success-order-id">#00000</span> has been verified and registered in the Senpai Supply network.</p>
+        <p class="sub-text">Our logistics droids are preparing your containment package.</p>
+        <button class="btn btn-glow btn-block mt-3" id="success-modal-close-btn">MONITOR SHIPMENT</button>
+    </div>
+
+    <!-- Toast Notification Popup Container -->
+    <div class="toast-container" id="toast-container"></div>
+
+    <!-- Footer System -->
+    <footer class="footer-system">
+        <div class="container footer-grid">
+            <div class="footer-brand">
+                <img src="/static/images/logo.png" alt="SenpaiSupply Logo" class="footer-logo">
+                <p>Establishing the matrix for elite anime collectibles and streetwear since 2026.</p>
+            </div>
+            <div class="footer-links-col">
+                <h5>DEPARTMENTS</h5>
+                <a href="#/shop?category=Figures">Figures</a>
+                <a href="#/shop?category=Apparel">Streetwear Apparel</a>
+                <a href="#/shop?category=Accessories">Weapons & Gear</a>
+                <a href="#/shop?category=Posters">Posters</a>
+            </div>
+            <div class="footer-links-col">
+                <h5>SECURITY GATE</h5>
+                <a href="#/auth">Access Credentials</a>
+                <a href="#/dashboard">User Console</a>
+                <a href="#/admin">Root Portal</a>
+            </div>
+            <div class="footer-links-col">
+                <h5>SECURE NETWORKS</h5>
+                <p class="net-status"><i class="fas fa-shield-alt text-neon"></i> SECURE DATABASE: SQLite v3</p>
+                <p class="net-status"><i class="fas fa-network-wired text-neon-cyan"></i> API DEPLOYMENT: ONLINE</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 SENPAISUPPLY GLOBAL MATRIX. DATA RIGHTS LICENSED UNDER OTC PROTOCOL.</p>
+        </div>
+    </footer>
+
+    <!-- Core Scripts -->
+    <script src="/static/js/api.js"></script>
+    <script src="/static/js/app.js?v=2"></script>
+    <script src="/static/js/shop.js"></script>
+    <script src="/static/js/auth.js"></script>
+    <script src="/static/js/checkout.js"></script>
+    <script src="/static/js/dashboard.js"></script>
+</body>
+</html>

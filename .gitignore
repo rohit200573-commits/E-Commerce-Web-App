@@ -1,15 +1,11 @@
-# Python virtual environment and cache
-backend/venv/
 __pycache__/
-backend/app/__pycache__/
-backend/app/routers/__pycache__/
-*.pyc
-*.pyo
-*.pyd
-
-# Database file
-backend/database.db
-
-# OS files
-.DS_Store
-Thumbs.db
+*.py[cod]
+*$py.class
+venv/
+env/
+.env
+.venv
+*.db
+*.sqlite3
+.jwt_secret
+downloaded_media/

@@ -1,0 +1,602 @@
+/* ==========================================================================
+   USER & ADMIN DASHBOARDS INTERFACE
+   ========================================================================== */
+
+/* Header panel */
+.dashboard-header-panel {
+    background: var(--bg-panel);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    padding: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: var(--panel-shadow);
+}
+
+.dashboard-header-panel h2 {
+    font-size: 1.6rem;
+    color: var(--text-primary);
+    margin-bottom: 5px;
+}
+
+.dashboard-header-panel p {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+.user-role-badge {
+    background: rgba(0, 240, 255, 0.1);
+    border: 1px solid var(--neon-cyan);
+    color: var(--neon-cyan);
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 800;
+    padding: 6px 15px;
+    border-radius: 2px;
+    letter-spacing: 1.5px;
+    box-shadow: var(--glow-cyan);
+}
+
+.user-role-badge.badge-admin {
+    background: rgba(255, 42, 95, 0.1);
+    border-color: var(--neon-pink);
+    color: var(--neon-pink);
+    box-shadow: var(--glow-pink);
+}
+
+/* User Dashboard Dual Column Layout */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    gap: 30px;
+    align-items: start;
+}
+
+.dashboard-sidebar-panel {
+    background: var(--bg-panel);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    padding: 30px;
+    box-shadow: var(--panel-shadow);
+    text-align: center;
+}
+
+.avatar-glow {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    background: rgba(189, 0, 255, 0.1);
+    border: 2px solid var(--neon-purple);
+    box-shadow: var(--glow-purple);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.2rem;
+    color: var(--neon-purple);
+    margin: 0 auto 20px auto;
+}
+
+.user-profile-summary h4 {
+    font-size: 1.1rem;
+    color: var(--text-primary);
+    margin-bottom: 5px;
+}
+
+.user-profile-summary p {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.dashboard-main-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.dashboard-card {
+    background: var(--bg-panel);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 4px;
+    padding: 30px;
+    box-shadow: var(--panel-shadow);
+}
+
+.dashboard-card h3 {
+    font-size: 1rem;
+    letter-spacing: 1.5px;
+    margin-bottom: 25px;
+    border-left: 3px solid var(--neon-pink);
+    padding-left: 12px;
+}
+
+/* Order tracker layout details (ordered -> processing -> shipped -> delivered) */
+.user-order-card {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 4px;
+    padding: 25px;
+    margin-bottom: 20px;
+}
+
+.user-order-card:last-child {
+    margin-bottom: 0;
+}
+
+.user-order-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.user-order-meta {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.8rem;
+    color: var(--text-primary);
+    font-weight: 700;
+}
+
+.user-order-meta span {
+    color: var(--text-muted);
+    font-weight: 400;
+    margin-right: 15px;
+}
+
+.user-order-total {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: var(--neon-cyan);
+}
+
+/* Shipping Tracker Progress Line visual */
+.order-tracking-tracker {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    margin: 30px 10px 10px 10px;
+}
+
+.order-tracking-tracker::after {
+    content: '';
+    position: absolute;
+    top: 15px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: rgba(255, 255, 255, 0.05);
+    z-index: 1;
+}
+
+.tracking-step-line {
+    position: absolute;
+    top: 15px;
+    left: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--neon-pink), var(--neon-cyan));
+    box-shadow: var(--glow-pink);
+    z-index: 2;
+    transition: width 0.6s ease;
+}
+
+.tracking-node {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    z-index: 5;
+}
+
+.node-icon-circle {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #1f1b33;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+    transition: all 0.4s ease;
+}
+
+.tracking-node.active .node-icon-circle {
+    background: var(--bg-dark);
+    border-color: var(--neon-pink);
+    color: var(--neon-pink);
+    box-shadow: var(--glow-pink);
+}
+
+.tracking-node.completed .node-icon-circle {
+    background: var(--neon-pink);
+    border-color: var(--neon-pink);
+    color: #fff;
+    box-shadow: var(--glow-pink);
+}
+
+.tracking-node.active-cyan .node-icon-circle {
+    background: var(--bg-dark);
+    border-color: var(--neon-cyan);
+    color: var(--neon-cyan);
+    box-shadow: var(--glow-cyan);
+}
+
+.tracking-node.completed-cyan .node-icon-circle {
+    background: var(--neon-cyan);
+    border-color: var(--neon-cyan);
+    color: #000;
+    box-shadow: var(--glow-cyan);
+}
+
+.node-text-label {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.tracking-node.active .node-text-label, .tracking-node.completed .node-text-label {
+    color: var(--neon-pink);
+}
+
+.tracking-node.active-cyan .node-text-label, .tracking-node.completed-cyan .node-text-label {
+    color: var(--neon-cyan);
+}
+
+.order-items-summary-list {
+    margin-top: 25px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.user-order-item-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.user-order-item-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.user-order-item-img {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 4px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.user-order-item-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.user-order-item-qty {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+.user-order-item-price {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+/* ==========================================================================
+   ADMIN PORTAL METRICS & TABLES
+   ========================================================================== */
+
+.admin-metrics-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+}
+
+.metric-box {
+    background: var(--bg-panel);
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    border-radius: 4px;
+    padding: 25px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    box-shadow: var(--panel-shadow);
+}
+
+.metric-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+}
+
+.box-sales .metric-icon { background: rgba(0, 240, 255, 0.1); color: var(--neon-cyan); border: 1px solid var(--neon-cyan); }
+.box-orders .metric-icon { background: rgba(189, 0, 255, 0.1); color: var(--neon-purple); border: 1px solid var(--neon-purple); }
+.box-products .metric-icon { background: rgba(255, 42, 95, 0.1); color: var(--neon-pink); border: 1px solid var(--neon-pink); }
+.box-users .metric-icon { background: rgba(57, 255, 20, 0.1); color: var(--neon-green); border: 1px solid var(--neon-green); }
+
+.metric-data {
+    display: flex;
+    flex-direction: column;
+}
+
+.metric-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.6rem;
+    color: var(--text-muted);
+    letter-spacing: 1px;
+    font-weight: 700;
+}
+
+.metric-data h3 {
+    font-size: 1.35rem;
+    color: var(--text-primary);
+    margin-top: 4px;
+}
+
+/* Charts and layout block columns */
+.dashboard-charts-layout {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 30px;
+}
+
+.chart-card {
+    display: flex;
+    flex-direction: column;
+}
+
+.chart-container-wrapper {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.chart-svg-container {
+    width: 100%;
+    padding: 10px 0;
+}
+
+/* Table styles */
+.dashboard-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+    text-align: left;
+}
+
+.dashboard-table th {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    letter-spacing: 1px;
+    padding: 12px 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    text-transform: uppercase;
+}
+
+.dashboard-table td {
+    padding: 14px 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+    color: var(--text-secondary);
+    vertical-align: middle;
+}
+
+.dashboard-table tbody tr:hover {
+    background: rgba(255, 255, 255, 0.01);
+}
+
+.dashboard-table .product-table-img {
+    width: 35px;
+    height: 35px;
+    object-fit: cover;
+    border-radius: 4px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.full-width {
+    width: 100%;
+}
+
+.table-scroll-container {
+    width: 100%;
+    overflow-x: auto;
+}
+
+/* Admin CRUD actions alignment */
+.admin-actions-cell {
+    display: flex;
+    gap: 8px;
+}
+
+.admin-action-btn {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--text-secondary);
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.75rem;
+    transition: all 0.3s ease;
+}
+
+.admin-action-btn:hover {
+    color: var(--neon-cyan);
+    border-color: var(--neon-cyan);
+}
+
+.admin-action-btn.btn-delete:hover {
+    color: #ff3333;
+    border-color: #ff3333;
+}
+
+/* Compliance status drop selector */
+.status-select {
+    background: var(--bg-dark);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    color: var(--text-secondary);
+    padding: 6px 12px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.8rem;
+    cursor: pointer;
+}
+
+.status-select:focus {
+    outline: none;
+    border-color: var(--neon-pink);
+}
+
+/* Status markers badges */
+.status-badge {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 2px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    font-family: 'Orbitron', sans-serif;
+    letter-spacing: 1px;
+}
+
+.badge-pending { background: rgba(255, 183, 0, 0.1); color: #ffb700; border: 1px solid rgba(255, 183, 0, 0.2); }
+.badge-shipped { background: rgba(189, 0, 255, 0.1); color: var(--neon-purple); border: 1px solid rgba(189, 0, 255, 0.2); }
+.badge-delivered { background: rgba(57, 255, 20, 0.1); color: var(--neon-green); border: 1px solid rgba(57, 255, 20, 0.2); }
+
+/* Admin tab pages content switching */
+.admin-sections-tabs {
+    background: var(--bg-panel);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    padding: 30px;
+    box-shadow: var(--panel-shadow);
+}
+
+.section-tabs-buttons {
+    display: flex;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    margin-bottom: 25px;
+    gap: 20px;
+}
+
+.section-tab {
+    background: transparent;
+    border: none;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 800;
+    color: var(--text-muted);
+    padding: 12px 0;
+    cursor: pointer;
+    position: relative;
+    letter-spacing: 1.5px;
+}
+
+.section-tab:hover {
+    color: var(--text-primary);
+}
+
+.section-tab.active {
+    color: var(--neon-cyan);
+    text-shadow: 0 0 5px rgba(0, 240, 255, 0.4);
+}
+
+.section-tab.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--neon-cyan);
+    box-shadow: var(--glow-cyan);
+}
+
+.section-tab-content {
+    display: none;
+}
+
+.section-tab-content.active {
+    display: block;
+    animation: pageFadeIn 0.3s ease-out forwards;
+}
+
+.tab-header-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.tab-header-actions h4 {
+    font-size: 0.95rem;
+}
+
+/* Empty Dashboard message */
+.empty-dashboard-message {
+    text-align: center;
+    padding: 40px 0;
+    color: var(--text-muted);
+}
+
+.empty-dashboard-message p {
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+}
+
+/* Chart SVG Bar indicators */
+.svg-chart-bar-rect {
+    fill: url(#pink-cyan-gradient);
+    rx: 3px;
+    transition: height 0.6s ease, y 0.6s ease;
+}
+
+.svg-chart-text {
+    fill: var(--text-muted);
+    font-size: 10px;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 700;
+    text-anchor: middle;
+}
+
+.svg-chart-value-text {
+    fill: var(--neon-cyan);
+    font-size: 11px;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 800;
+    text-anchor: middle;
+}
+
+/* Responsive breakdowns */
+@media (max-width: 992px) {
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+    .dashboard-charts-layout {
+        grid-template-columns: 1fr;
+    }
+}
