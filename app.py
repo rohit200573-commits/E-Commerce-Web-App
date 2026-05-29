@@ -48,10 +48,9 @@ app.register_blueprint(wishlist_bp)
 def home():
     return render_template('index.html')
 
+# Initialize the database and load seed data if needed (runs on Gunicorn import)
+database.init_db()
+
 if __name__ == '__main__':
-    # Initialize the database and load seed data if needed
-    database.init_db()
-    
     # Start Flask Server
     app.run(debug=True, host='0.0.0.0', port=5000)
-
